@@ -21,10 +21,19 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'com.mercateo.spring:spring-security-jwt:2.1.1'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
+//	implementation 'org.springframework.security:spring-security-core:6.1.0'
+//
+//
+//	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+//
+//	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

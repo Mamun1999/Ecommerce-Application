@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -24,6 +25,12 @@ public class UserService {
 
     }
 
+    public List<User> getUsers(){
+     List<User> users= this.userRepository.findAll();
+
+        return users;
+    }
+
     public void initUserDetails(){
 
         Role adminRole=new Role();
@@ -32,29 +39,29 @@ public class UserService {
         this.roleRepository.save(adminRole);
 
         Role userRole=new Role();
-        userRole.setRoleName("naim");
+        userRole.setRoleName("user");
         userRole.setRoleDescription("User desc");
         this.roleRepository.save(userRole);
 
-        Set<Role> list=new HashSet<>();
 
 
+        Set<Role> list1=new HashSet<>();
         User adminUser=new User();
         adminUser.setUserName("mamun");
         adminUser.setUserFirstName("abdullah");
         adminUser.setUserLastName("mamun");
         adminUser.setEmail("mamun@gmail.com");
         adminUser.setPassword("12345");
-        list.add(adminRole);
-        adminUser.setRoleSet(list);
+        list1.add(adminRole);
+        adminUser.setRoleSet(list1);
 
         this.userRepository.save(adminUser);
 
-
+        Set<Role> list=new HashSet<>();
 
         User normalUser=new User();
         normalUser.setUserName("naim");
-        normalUser.setUserFirstName("naim");
+        normalUser.setUserFirstName("naimur234");
         normalUser.setUserLastName("naimur");
         normalUser.setEmail("naim@gmail.com");
         normalUser.setPassword("123");
