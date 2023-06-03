@@ -61,6 +61,11 @@ public class SecurityConfig {
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return daoAuthenticationProvider;
     }
+
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
 
@@ -69,7 +74,7 @@ public class SecurityConfig {
                 .csrf().disable()
                 .cors().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/user/createUser").permitAll()
+                .requestMatchers("/user/createUser","/token").permitAll()
 //                .and()
 //                .authorizeHttpRequests().requestMatchers("/user/normalUser").hasRole("NORMAL")
 
