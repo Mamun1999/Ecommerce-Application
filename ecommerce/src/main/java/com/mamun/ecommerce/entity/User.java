@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 @Entity
-public class User implements UserDetails{
+public class User implements  UserDetails{
 
     @Id
     private String userName;
@@ -36,6 +36,7 @@ public class User implements UserDetails{
             name = "USER_ROLE",
 
             joinColumns = {
+
                     @JoinColumn(name = "USER_ID")
 
             },
@@ -56,6 +57,7 @@ public class User implements UserDetails{
 
     @Override
     public String getUsername() {
+
         return this.userName;
     }
    @Override
