@@ -10,6 +10,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.net.http.HttpRequest;
@@ -28,6 +30,8 @@ import java.net.http.HttpRequest;
 public class SecurityConfig {
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
 //      @Bean
 //     public UserDetailsService userDetailsService(){
@@ -75,15 +79,21 @@ public class SecurityConfig {
                 .cors().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/user/createUser","/token").permitAll()
-//                .and()
-//                .authorizeHttpRequests().requestMatchers("/user/normalUser").hasRole("NORMAL")
+                .and()
+                .authorizeHttpRequests().requestMatchers("/user/getUsers").hasRole("ADMIN")
 
 
 
                 .anyRequest()
                 .authenticated().and().httpBasic();
 
+
+        httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         httpSecurity.authenticationProvider(authenticationProvider());
+
+        httpSecurity.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+
 
 
 
